@@ -1,0 +1,209 @@
+.\" 
+.\" Copyright (c) 2010 ... 2016 2017 2018 2019
+.\"     John McCue <jmccue@jmcunx.com>
+.\" 
+.\" Permission to use, copy, modify, and distribute this software for any
+.\" purpose with or without fee is hereby granted, provided that the above
+.\" copyright notice and this permission notice appear in all copies.
+.\" 
+.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
+.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
+.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
+.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
+.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
+.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
+.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
+.\" 
+.TH jr 1 "$Date: 2019/11/19 23:31:42 $" "JMC" "Local Command"
+.SH NAME
+jr - reformats text column data
+.SH SYNOPSIS
+jr [OPTIONS] [FILE...]
+.SH DESCRIPTION
+Reformats column data of one or more files,
+creating one output file.
+Can also convert flat files to delimited and vice-a-versa.
+.PP
+If no files (FILE) are specified on the command line or
+if FILE has name '-', stdin (Standard Input) is used.
+.TP
+-C type,col_pos,col_size[,new_size][,format]
+Can be specified multiple number of times, once for each
+per field you want to process.
+See -P below for more detail.
+.TP
+-P file
+Obtain column information from 'file', this file
+contains comma separated records with the the fields below.
+Note, empty records are ignored, and data following a '#' is ignored,
+character '#' is the comment character.
+.IP
+Arguments '-C' and '-P' uses comma delimited data, field
+values:
+.nf
+   field        Description
+   ------------ -------------------------------------------------
+   type         Field type, valid values:
+                    c = character data
+                    d = dates
+                    n = numeric data
+   col_pos      is the starting position of the column OR
+                the field location when the file is delimited.
+   col_size     is the length of the column.
+   new_col_size Optional, the size you want to use on output,
+                if not specified, will default to 'col_size'.
+                Empty values are allowed if you need to specify 
+                a 'format' or 'title' value.
+   format       Optional, reformat column data, valid values:
+                    e = Remove embedded white spaces in string
+                    f = Fix numeric data.  Remove thousand
+                        separators, move trailing minus sign
+                        to the start of the number, print a
+                        leading zero if the first character
+                        is a decimal point.
+                    L = Translate string to Lowercase
+                    r = Remove all characters specified by
+                        argument (-s) from string
+                    t = Trim character data.  Remove trailing
+                        spaces and left justifies the string
+                    U = Translate string to Uppercase
+                    z = pad number/character with leading zeros
+                depending upon the value of 'type', some of 
+                these items are ignored.  Empty value allowed
+                if you need to specify 'title' value.  Multiple
+                values are allowed, just string them together.
+   title        Optional Title, informational, displayed
+                on the log report (-r).
+.fi
+The order these are specified determines the order the 
+columns are written to the output file.
+.TP
+-d delm
+Is the Input a delimited file ?
+If so, supply the delimiter as a specific character or a decimal
+number that represents the character.
+For example to use:
+.nf
+    delimiter  Use arg
+    ---------  -------------------
+       |       -d '|'  OR -d 124
+       TAB     -d 9
+       ^G      -d 7
+.fi
+If not specified, the file assumed to be a flat file.
+.TP
+-D delm
+Is the Output a delimited file ?
+If so, supply the delimiter as a specific character or a decimal
+number that represents the character.
+For example to use:
+.nf
+    delimiter  Use arg
+    ---------  -------------------
+       |       -D '|'  OR -D 124
+       TAB     -D 9
+       ^G      -D 7
+.fi
+If not specified, the file will be created as a flat file
+.TP
+-e file
+Optional, if used, write error messages to file 'file'.
+If not specified, errors written to stderr.
+.TP
+-f
+Force file create.
+Create file even if the target file exists.
+.TP
+-G string
+Optional Global Output Format Hints, see below for string definition.
+.TP
+-g string
+Optional Global Input Format Hints, see below for string definition.
+.IP
+Format of 'string' for Global Hints (-G and -g above).
+This is a comma separated string which contains these values,
+if not specified defaults are noted:
+.nf
+    value  meaning
+    -----  ----------------------------------------------
+      c    Decimal point is a comma, default is a period.
+      d    Date Separator is a '-'
+      s    Date Separator is a '/', this is the default.
+      1    date format is YYYYMMDD, this is the default
+      2    date format is MM/DD/YY
+      3    date format is DD/MM/YY
+      4    date format is YY/MM/DD
+      5    date format is MM/DD/YYYY
+      6    date format is DD/MM/YYYY
+      7    date format is YYYY/MM/DD
+      'Date Separator' will be used to format date,
+      default is shown in date examples.
+.fi
+.IP
+Example, '-G c,d,5' is an example of the argument.
+.TP
+-h
+Show brief help and exit.
+.TP
+-o file
+Optional, if used, write output to file 'file'.
+If not specified, output written to stdout.
+.TP
+-r file
+Optional, generate a log report of data processed
+and how processed.
+Will show detail when data errors occur.
+.TP
+-s string
+Optional, strip these characters from the string if
+format type 'r' is specified, see -C & -P above.
+.TP
+-t
+Write column titles to the first record 
+of the Output File.
+Titles are retrieved from arguments -C & -P above.
+If titles do not exist, they are not printed.
+.TP
+-v
+verbose, print file stats and Warning Messages.
+.TP
+-V
+output version information and exit.
+.SH EXAMPLE
+Convert a 5 column pipe delimited file to a flat
+file formated with these 3 columns in this order:
+.nf
+    Column  Type    Size  Title    Action
+    ------  ------  ----  ------  ----------------------
+       3    number    11  Count   Fix numeric Data
+       1    char      20  Name    Trim, remove embedded
+       4    char      15  City    Convert to upper case
+.fi
+Will increase Output column size by 1 space
+.nf
+    jr -d 124 -C n,3,11,12,f,Count \\
+              -C c,1,20,21,te,Name \\
+              -C c,4,15,16,U,Code infile > outfile
+.fi
+.SH DIAGNOSTICS
+Note, if an error occurs while parsing command line arguments,
+errors may be written stderr instead of the error file specified.
+.PP
+Right now, time portion or a date/time field marked as
+date is ignored.
+Dates are converted fine, time portion is truncated.
+For now, if you want to keep time portion of a
+date/time string use type 'c'.
+Eventually a new convert type will be added (date/time).
+.SH SEE-ALSO
+awk(1),
+col(1),
+cut(1),
+j(1),
+paste(1),
+sed(1)
+.SH ERROR-CODES
+.nf
+0 success
+1 processing error or help/rev displayed
+.fi
