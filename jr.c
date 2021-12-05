@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef _MSDOS
 #include <sys/param.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -31,8 +33,6 @@
 #include <j_lib2m.h>
 
 #include "jr.h"
-
-char *jr_c="$Id: jr.c,v 3.3 2021/02/21 20:41:02 jmccue Exp jmccue $";
 
 /*
  * process_a_file()
@@ -154,5 +154,3 @@ int main(int argc, char **argv)
   exit(EXIT_SUCCESS);
 
 }  /* main() */
-
-/* END: jr.c */

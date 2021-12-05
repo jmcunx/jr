@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -16,7 +16,7 @@
  */
 #ifndef JR_H
 
-#define JR_H "$Id: jr.h,v 3.2 2020/06/16 22:26:08 jmccue Exp $"
+#define JR_H "INCLUDED"
 
 #define PROG_NAME  "jr"
 
@@ -155,5 +155,3 @@ void show_col_info(FILE *, struct s_column *, int);
 void clear_col_vals(struct s_column *);
 
 #endif /*  JR_H  */
-
-/* END: jr.h */

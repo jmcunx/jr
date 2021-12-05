@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef _MSDOS
 #include <sys/param.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -24,15 +26,6 @@
 #include <j_lib2m.h>
 
 #include "jr.h"
-
-char *jr_h_c="$Id: jr_h.c,v 3.4 2021/02/21 20:41:02 jmccue Exp $";
-
-extern char *jr_c;
-extern char *jr_a_c;
-extern char *jr_col_c;
-extern char *jr_i_c;
-extern char *jr_parse_c;
-extern char *jr_u_c;
 
 /*** Messages ***/
 #define MSG_HELP_11  "Rearrange Fields in a Flat Fixed Length File "
@@ -93,21 +86,12 @@ int show_rev(FILE *fp, char *pname)
 {
 
   fprintf(fp,"%s %s:\n", pname, LIT_REV);
-  fprintf(fp,"\t%s\n", JR_H);
-  fprintf(fp,"\t%s\n", jr_c);
-  fprintf(fp,"\t%s\n", jr_a_c);
-  fprintf(fp,"\t%s\n", jr_col_c);
-  fprintf(fp,"\t%s\n", jr_h_c);
-  fprintf(fp,"\t%s\n", jr_i_c);
-  fprintf(fp,"\t%s\n", jr_parse_c);
-  fprintf(fp,"\t%s\n", jr_u_c);
 
 #ifdef J_LIB2M_H
   fprintf(fp, "\t%s\n", J_LIB2M_H);
 #endif
 #ifdef J_LIB2_H
-  fprintf(fp,"\t%s\n", J_LIB2_H);
-  fprintf(fp,"\t     %s %s\n", LIT_INFO_02, j2_get_build());
+  fprintf(fp,"\t%s %s\n", LIT_INFO_02, j2_get_build());
 #endif
 
 #ifdef OSTYPE
@@ -121,5 +105,3 @@ int show_rev(FILE *fp, char *pname)
   return(EXIT_FAILURE);
 
 }  /* show_rev() */
-
-/* END: jr_h.c */

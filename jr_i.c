@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021 
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef _MSDOS
 #include <sys/param.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -26,8 +28,6 @@
 #include <j_lib2m.h>
 
 #include "jr.h"
-
-char *jr_i_c="$Id: jr_i.c,v 3.3 2021/02/21 20:41:02 jmccue Exp $";
 
 /*
  * init_hints() -- initialize format hints
@@ -213,5 +213,3 @@ void init(int argc, char **argv, struct s_work *w, struct s_column *c)
     write_out_titles(w, c);
 
 }  /* init() */
-
-/* END: jr_i.c */

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef _MSDOS
 #include <sys/param.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -28,10 +30,6 @@
 #include "jr.h"
 
 #define ARGLEN 100
-
-char *jr_a_c="$Id: jr_a.c,v 3.3 2021/02/21 20:41:02 jmccue Exp $";
-
-char init_get_delm(FILE *, char *);
 
 /*
  * init_get_delm() -- translate a string into a delimiter
@@ -281,5 +279,3 @@ void process_arg(int argc, char **argv, struct s_work *w, struct s_column *c)
     }
 
 } /* process_arg() */
-
-/* END: jr_a.c */

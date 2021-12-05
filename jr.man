@@ -1,5 +1,5 @@
 .\" 
-.\" Copyright (c) 2010 ... 2016 2017 2018 2019
+.\" Copyright (c) 2010 ... 2021 2022
 .\"     John McCue <jmccue@jmcunx.com>
 .\" 
 .\" Permission to use, copy, modify, and distribute this software for any
@@ -14,7 +14,7 @@
 .\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 .\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 .\" 
-.TH jr 1 "$Date: 2019/11/19 23:31:42 $" "JMC" "Local Command"
+.TH jr 1 "2019/11/19" "JMC" "Local Command"
 .SH NAME
 jr - reformats text column data
 .SH SYNOPSIS
@@ -125,7 +125,7 @@ This is a comma separated string which contains these values,
 if not specified defaults are noted:
 .nf
     value  meaning
-    -----  ----------------------------------------------
+    -----  --------------------------------------------------
       c    Decimal point is a comma, default is a period.
       d    Date Separator is a '-'
       s    Date Separator is a '/', this is the default.
@@ -136,8 +136,9 @@ if not specified defaults are noted:
       5    date format is MM/DD/YYYY
       6    date format is DD/MM/YYYY
       7    date format is YYYY/MM/DD
-      'Date Separator' will be used to format date,
-      default is shown in date examples.
+
+      'Date Separator' will be used to format date depending
+      upon format selected, default is shown in date examples.
 .fi
 .IP
 Example, '-G c,d,5' is an example of the argument.
@@ -171,15 +172,15 @@ verbose, print file stats and Warning Messages.
 output version information and exit.
 .SH EXAMPLE
 Convert a 5 column pipe delimited file to a flat
-file formated with these 3 columns in this order:
+file formatted with these 3 columns in this order:
 .nf
     Column  Type    Size  Title    Action
-    ------  ------  ----  ------  ----------------------
-       3    number    11  Count   Fix numeric Data
-       1    char      20  Name    Trim, remove embedded
+    ------  ------  ----  ------  ------------------------
+       3    number    11  Count   Fix Numeric Data
+       1    char      20  Name    Trim and remove embedded
        4    char      15  City    Convert to upper case
 .fi
-Will increase Output column size by 1 space
+Will also increase Output column size of all fields by 1 space.
 .nf
     jr -d 124 -C n,3,11,12,f,Count \\
               -C c,1,20,21,te,Name \\
@@ -199,7 +200,6 @@ Eventually a new convert type will be added (date/time).
 awk(1),
 col(1),
 cut(1),
-j(1),
 paste(1),
 sed(1)
 .SH ERROR-CODES

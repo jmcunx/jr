@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef _MSDOS
 #include <sys/param.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <ctype.h>
@@ -26,8 +28,6 @@
 #include "jr.h"
 
 #define MAX_FMT_SZ 100
-
-char *jr_parse_c="$Id: jr_parse.c,v 3.3 2021/02/21 20:41:02 jmccue Exp jmccue $";
 
 /*
  * remove_chars() -- Remove characters from a string
@@ -41,7 +41,7 @@ void remove_chars(char *value, char *sc)
       sc++;
     }
 
-} /* END: remove_chars() */
+} /* remove_chars() */
 
 /*
  * fix_char() -- convert character based upon hints
@@ -477,5 +477,3 @@ void lead_zero(char *col, char col_type, long int max_size)
     (*col) = NEG_SIGN;
 
 } /* lead_zero() */
-
-/* jr_parse.c */

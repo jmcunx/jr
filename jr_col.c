@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010 ... 2020 2021
+ * Copyright (c) 2010 ... 2021 2022
  *     John McCue <jmccue@jmcunx.com>
  *
  * Permission to use, copy, modify, and distribute this software for any
@@ -15,7 +15,9 @@
  * OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
  */
 
+#ifndef _MSDOS
 #include <sys/param.h>
+#endif
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -25,8 +27,6 @@
 #include <j_lib2m.h>
 
 #include "jr.h"
-
-char *jr_col_c = "$Id: jr_col.c,v 3.3 2021/02/21 20:41:02 jmccue Exp $";
 
 /*
  * write_numb_col() -- write a rearrange numeric column
@@ -775,5 +775,3 @@ void write_col_fixed(FILE *fp, struct s_column *c, long int *writes)
   (*writes)++;
 
 } /* write_col_delimited() */
-
-/* END: jr_col.c */
