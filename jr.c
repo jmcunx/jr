@@ -52,7 +52,7 @@ void process_a_file(struct s_work *w, struct s_column *c, char *fname,
   if ( ! open_in(&fp, fname, w->err.fp) )
     return;
 
-  while (getline(buf, bsize, fp) > (ssize_t) -1)
+  while (j2_getline(buf, bsize, fp) > (ssize_t) -1)
     {
       lines_read++;
       j2_bye_nl((*buf));

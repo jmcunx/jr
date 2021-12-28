@@ -695,7 +695,7 @@ long int load_col_file(FILE *fp_err, struct s_column *c,
       exit(EXIT_FAILURE);
     }
 
-  while (getline(&buf, &bsize, fp) > (ssize_t) -1)
+  while (j2_getline(&buf, &bsize, fp) > (ssize_t) -1)
     {
       lines_read++;
       j2_bye_nl(buf);
