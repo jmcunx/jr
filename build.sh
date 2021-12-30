@@ -74,6 +74,8 @@ fi
 
 OS=`uname -s`
 export OS
+GROUP=`id -gn`
+export GROUP
 
 found_dir_set="N"
 
