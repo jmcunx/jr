@@ -128,6 +128,8 @@ void free_col_list(struct s_column *col)
     free(col->col_max);
   if (col->title != (char *) NULL)
     free(col->title);
+  if (col->col_fmt != (char *) NULL)
+    free(col->col_fmt);
 
   if (col->next_col != COL_LIST_NULL)
     free(col->next_col);

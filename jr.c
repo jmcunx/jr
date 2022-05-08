@@ -157,6 +157,9 @@ int main(int argc, char **argv)
   close_out(&(w.rpt));
   free_col_list(&c);
 
+  if (w.prog_name != (char *) NULL)
+    free(w.prog_name);
+
   exit(EXIT_SUCCESS);
 
 }  /* main() */
