@@ -10,7 +10,7 @@ It can also:
 * Adjust Field Formatting, for example convert Date Strings.
 * Convert to/from Flat Fixed Length Files from/to Delimited Text Files.
 
-This requires [j\_lib2](https://github.com/jmcunx/j_lib2) to build.
+[j\_lib2](https://github.com/jmcunx/j_lib2) is an **optional** dependency.
 
 [GNU automake](https://en.wikipedia.org/wiki/Automake)
 only confuses me, but this seems to be good enough for me.
